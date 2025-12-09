@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(helmet());
+app.use(helmet({contentSecurityPolicy: false}));
 app.use(morgan(process.env.NODE_ENV == "production" ? "combined" : "dev"));
 
 // Routes
