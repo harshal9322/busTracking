@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Buses</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Bus Management</h1>
+  <nav>
+    <a href="dashboard.html">Dashboard</a> |
+    <a href="routes.html">Manage Routes</a>
+  </nav>
+
+  <section>
+    <h2>Add New Bus</h2>
+    <form id="busForm">
+      <input type="text" id="busNumber" placeholder="Bus Number" required />
+      <input type="text" id="driverName" placeholder="Driver Name" required />
+      <input type="number" id="capacity" placeholder="Capacity" required />
+      <input type="text" id="routeId" placeholder="Route ID" required />
+      <button type="submit">Add Bus</button>
+    </form>
+    <p id="msg" style="color:green"></p>
+  </section>
+
+  <section>
+    <h2>All Buses</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Bus Number</th>
+          <th>Driver</th>
+          <th>Capacity</th>
+          <th>Route ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="busList"></tbody>
+    </table>
+  </section>
+
+  <script src="admin/js/buses.js"></script>
+</body>
+</html>

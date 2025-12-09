@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Bus Tracking</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { height: 100vh; width: 100%; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    // ✅ Inject bus data from backend (EJS)
+    const bus = <%- JSON.stringify(bus) %>;
+    console.log("Bus data:", bus);
+
+    const lat = bus.currentLocation?.lat
+    const lng = bus.currentLocation?.lng 
+
+    // Initialize map
+    const map = L.map("map").setView([lat, lng], 12);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    const socket = io();
+    const busMarkers = {};
+
+    // Listen for location updates
+    socket.on("busLocationUpdated", ({ busNumber, lat, lng }) => {
+      console.log("📍 Received update:", busNumber, lat, lng);
+     
+        if (busMarkers[busNumber]) {
+          busMarkers[busNumber].setLatLng([lat, lng]);
+        } else {
+          busMarkers[busNumber] = L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup(`Bus Number: ${busNumber}`);
+            map.setView([lat, lng],25);
+        }
+    });
+
+  </script>
+</body>
+</html>
