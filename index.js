@@ -39,8 +39,25 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(helmet({contentSecurityPolicy: false}));
 app.use(morgan(process.env.NODE_ENV == "production" ? "combined" : "dev"));
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://unpkg.com", "https://cdn.socket.io"],
+      styleSrc: ["'self'", "https://unpkg.com", "'unsafe-inline'"],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "https://unpkg.com",
+        "https://*.tile.openstreetmap.org"
+      ],
+      connectSrc: ["'self'", "https://cdn.socket.io"],
+      fontSrc: ["'self'", "https://unpkg.com"],
+    },
+  })
+);
+
 
 // Routes
 import adminRoutes from "./routes/adminRoutes.js";
