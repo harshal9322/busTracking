@@ -132,7 +132,8 @@
     <form id="addBusForm" class="add-bus-form">
       <input type="text" id="busDriver" placeholder="Driver Name" required>
       <input type="text" id="busNumber" placeholder="Bus Number" required>
-      <input type="text" id="route" placeholder="Route" required>
+      <input type="text" id="from" placeholder="From" required>
+      <input type="text" id="to" placeholder="To" required>
       <button type="submit">Add Bus</button>
     </form>
 
@@ -142,7 +143,8 @@
         <tr>
           <th>driver Name</th>
           <th>Bus Number</th>
-          <th>Route</th>
+          <th>From</th>
+          <th>To</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -161,12 +163,14 @@
                   <%= bus.busNumber %>
                 </td>
                 <td>
-                  <%= bus.route %>
+                  <%= bus.from %>
+                </td>
+                <td>
+                  <%= bus.to %>
                 </td>
                 <td>
                   <button class="delete-btn" data-id="<%= bus._id %>">Delete</button>
                   <button class="live-btn" data-id="<%= bus._id %>">Live</button>
-
                 </td>
               </tr>
               <% }) %>
