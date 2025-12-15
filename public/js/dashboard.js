@@ -41,13 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const driverName = document.getElementById("busDriver").value.trim();
       const busNumber = document.getElementById("busNumber").value.trim();
-      const route = document.getElementById("route").value.trim();
+      const from = document.getElementById("from").value.trim();
+      const to = document.getElementById("to").value.trim();
 
       try {
         const res = await fetch("/api/admin/bus", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ driverName, busNumber, route }),
+          body: JSON.stringify({ driverName, busNumber, from, to }),
         });
 
         if (res.ok) {
