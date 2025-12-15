@@ -34,9 +34,9 @@ export const getDashboard = async (req, res) => {
 }
 export const addBus = async (req, res) => {
   try {
-    const {driverName, busNumber, route} = req.body;
+    const {driverName, busNumber, from, to} = req.body;
     const bus = new Bus({
-      driverName, busNumber, route
+      driverName, busNumber, from, to
     });
     await bus.save();
     res.status(201).json(bus);
