@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Bus from '../models/Bus.js'
 import bcrypt from "bcrypt";
 
 //register
@@ -49,5 +50,27 @@ export const userLogin = async (req, res) => {
         });
     } catch (err) {
         res.status(500).json({ success: false, message: "Server error", error: err.message });
+    }
+}
+
+// get bus
+export const findBus = async (req, res) => {
+    try {
+        const { from, to } = req.body
+        
+        if (!from || !to) {
+            return res.status(400).json({
+                success: false,
+                message: "please enter Bus Stations",
+            });
+        }
+        const buses = await Bus.find({ from, to });
+        if (buses.length === 0) {
+            return res.status(404).json({ success: false, message: "Bus Not Found" });
+        }
+        res.status(200).json({ success: true, buses });
+    } catch (err) {
+        console.log('error', err);
+        return req.status(500).json({ success:false, message:"Internal server error"});
     }
 }
