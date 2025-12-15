@@ -10,6 +10,6 @@ router.post("/register",userRegister);
 // Login
 router.post("/login", userLogin);
 // find Buses
-router.post("/login/buses", authMiddleware, findBus);
+router.post("/login/buses", findBus);
 
 export default router;
